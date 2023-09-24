@@ -1,19 +1,55 @@
 "use client";
 
 import Input from "@/app/components/input/Input"
+import axios from "axios";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
+import SocialConnexions from "./SocialConnexions";
 
 
 const AuthForm = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
   const [variant, setVariant] = useState('login');
 
   const toggleVariant = useCallback(() => {
     setVariant(prevState=> prevState === 'register' ?  'login': 'register')
-  }, [])
+  }, []);
+
+  const login = useCallback(async () => {
+    try {
+        setLoading(true)
+        await signIn('credentials', {
+            email,
+            password,
+            redirect: false,
+            callbackUrl: "/"
+        });
+        setLoading(false);
+        router.push("/");
+    }catch(error) {
+        console.error(error)
+    }
+  }, [email, password, router])
+
+  const register = useCallback(async () => {
+    try {
+        await axios.post("/api/register", {
+            email,
+            name,
+            password
+        }).then(() => setLoading(false))
+        .finally(() => setLoading(false));
+        login();
+    } catch (error) {
+        console.error(error)
+    }
+  }, [email, name, password, login])
 
   return (
     <div className="flex justify-center">
@@ -59,18 +95,21 @@ const AuthForm = () => {
                     type="password"
                     value={password}
                 />
-                <button className="
-                    bg-red-600 
+                <button className={`
                     py-3 
                     text-white
                     rounded-md 
                     w-full
                     mt-10
                     hover:bg-red-700
-                    transition
-                ">
+                    transition ${loading ? "bg-red-900 cursor-not-allowed" : "bg-red-600 cursor-pointer"}`
+                    }
+                    disabled={loading}
+                    onClick={variant === "login" ? login : register }
+                >
                     { variant === "login" ? "Login" : "Sign up"}
                 </button>
+                <SocialConnexions />
                 <p  onClick={toggleVariant}
                     className="text-neutral-500 mt-12">
                     { variant === "login" ? "First time using Netflix?" : "Already have you an account ?"}
