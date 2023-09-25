@@ -1,11 +1,11 @@
 "use client";
 
-import Input from "@/app/components/input/Input"
 import axios from "axios";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
+
 import SocialConnexions from "./SocialConnexions";
+import Input from "@/app/components/input/Input"
 
 
 const AuthForm = () => {
@@ -14,7 +14,6 @@ const AuthForm = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const router = useRouter();
   const [variant, setVariant] = useState('login');
 
   const toggleVariant = useCallback(() => {
@@ -27,15 +26,13 @@ const AuthForm = () => {
         await signIn('credentials', {
             email,
             password,
-            redirect: false,
-            callbackUrl: "/"
+            callbackUrl: "/profile"
         });
         setLoading(false);
-        router.push("/");
     }catch(error) {
         console.error(error)
     }
-  }, [email, password, router])
+  }, [email, password])
 
   const register = useCallback(async () => {
     try {

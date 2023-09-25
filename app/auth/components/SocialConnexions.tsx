@@ -26,7 +26,7 @@ const SocialConnexions = () => {
             hover:opacity-80
             transition 
         "
-            onClick={() => signIn('google', { callbackUrl: '/'})}
+            onClick={() => signIn('google', { callbackUrl: '/profile'})}
         >
             <FcGoogle size={30}/>
         </div>
@@ -42,7 +42,7 @@ const SocialConnexions = () => {
             hover:opacity-80
             transition 
         "
-            onClick={() => signIn('github', { callbackUrl: '/'})}
+            onClick={() => signIn('github', { callbackUrl: '/profile'})}
         >
             <FaGithub size={30}/>
         </div>
