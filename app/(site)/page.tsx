@@ -1,16 +1,18 @@
 "use client";
 
-import { signOut } from "next-auth/react"
+import Navbar from "../components/navbar/Navbar";
 export default function Home() {
   return (
     <>
-      <h1 className="text-red-500"> sdmkws </h1>
-      <button
-        onClick={() => signOut()} 
-        className="h-10 w-full bg-white"
-      >
-        Sign out
-      </button>
+      <Navbar />
+        <div className="bg-gray-500">
+        <div className="h-96"></div>
+        <div className="h-96"></div>
+        <div className="h-96"></div>
+        <div className="h-96"></div>
+        <div className="h-96"></div>
+        <div className="h-96"></div>
+      </div>
     </>
   )
 }
