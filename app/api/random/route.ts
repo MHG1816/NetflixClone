@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import prismadb from "@/app/lib/prismadb";
 
-export default async function GET() {
+export async function GET() {
     try{
         const movieCount = await prismadb.movie.count();
         const randomIndex = Math.floor(Math.random() * movieCount)
@@ -11,6 +11,8 @@ export default async function GET() {
             take: 1,
             skip: randomIndex
         });
+
+        console.log(randomMovies)
 
 
         return NextResponse.json(randomMovies[0])
