@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import prisma from "@/app/lib/prismadb";
 
-export default async function GET() {
+export async function GET() {
     try{
         const movies = await prisma.movie.findMany();
 
