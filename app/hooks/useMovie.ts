@@ -4,7 +4,7 @@ import fetcher from "../lib/fetcher";
 
 
 const useMovie = ( id : string) => useSWR(
-    "/api/movies/" + id,
+    id ? "/api/movies/" + id : null,
     fetcher,
     {
         revalidateIfStale: false,

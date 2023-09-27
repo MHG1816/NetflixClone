@@ -6,7 +6,7 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 interface IParams{
     movieId : string
 }
-export default async function GET({ params } : { params : IParams }) {
+export async function GET(_ : Request, { params } : { params : IParams }) {
     try {
         const currentUser = await getCurrentUser();
 

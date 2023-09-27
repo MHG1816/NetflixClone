@@ -1,8 +1,10 @@
+"use client";
+
 import { Movie } from "@prisma/client"
 import Image from "next/image";
 import { BsFillPlayFill } from "react-icons/bs";
 import FavoriteButton from "./FavoriteButton";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface MovieCardProps {
     data: Movie
