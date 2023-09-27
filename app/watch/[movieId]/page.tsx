@@ -1,5 +1,5 @@
 import useMovie from '@/app/hooks/useMovie';
-import Header from './components/Header';
+import Header from './components/Watch';
 
 
 interface IParams {
