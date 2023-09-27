@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/app/lib/prismadb";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { without } from "lodash";
+import getSession from "@/app/actions/getSession";
 
 interface IParams {
   movieId?: string;
@@ -22,14 +23,14 @@ interface IParams {
  * const response = await POST(req, { params: { movieId: "123" } });
  * // Response: { "email": "test@example.com", "favoriteIds": ["123"] }
  */
-export async function POST(req: Request, { params }: { params: IParams }) {
+export async function POST(_ : Request, { params }: { params: IParams }) {
   try {
     // Retrieve the current user
     const currentUser = await getCurrentUser();
 
     // Check if the user's email is missing
     if (!currentUser?.email) {
-      return new NextResponse("Internal Error", { status: 400 });
+      return new NextResponse("Unauthorizated", { status: 401 });
     }
 
     // Extract the movie ID from the parameters

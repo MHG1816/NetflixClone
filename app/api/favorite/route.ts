@@ -4,7 +4,6 @@ import prisma from "@/app/lib/prismadb";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 
 
-
 /**
  * Retrieves the favorite movies of the current user.
  * 
@@ -20,11 +19,6 @@ export async function GET() {
       // Retrieve the current user
       const currentUser = await getCurrentUser();
   
-      // Check if the user's email is missing
-      if (!currentUser?.email) {
-        return new NextResponse("Unauthorized", { status: 500 });
-      }
-  
       // Retrieve the favorite movies of the current user
       const favoriteMovies = await prisma.movie.findMany({
         where: {
@@ -39,6 +33,6 @@ export async function GET() {
       console.log(error);
       return new NextResponse("Invalid response", { status: 500 });
     }
-  }
+}
   
   

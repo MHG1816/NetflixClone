@@ -10,7 +10,7 @@ import fetcher from "../lib/fetcher";
  * a loading state, 
  * and a function to mutate the data.
  */
-const useFavorites = () => useSWR("/api/favorites", fetcher, {
+const useFavorites = () => useSWR("/api/favorite", fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false
