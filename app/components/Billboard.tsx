@@ -3,8 +3,16 @@
 import useBillBoard from "../hooks/useBillboard";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import PlayButton from "./PlayButton";
+import { useCallback } from "react";
+import useInfoModal from "../hooks/useInfoModal";
 const Billboard = () => {
   const { data } = useBillBoard();
+  const { openModal } = useInfoModal();
+
+  const handleOpenModal = useCallback(() => {
+    openModal(data?.id);
+  }, 
+  [data?.id, openModal])
   return (
     <div className="relative h-[56.25vw]">
         <video 
@@ -49,7 +57,9 @@ const Billboard = () => {
                 gap-3
             ">
                 <PlayButton movieId={data?.id}/>
-                <button className="
+                <button
+                    onClick={handleOpenModal} 
+                    className="
                     bg-white
                     text-white
                     bg-opacity-30
