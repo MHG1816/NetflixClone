@@ -2,13 +2,15 @@ import { Movie } from "@prisma/client"
 import Image from "next/image";
 import { BsFillPlayFill } from "react-icons/bs";
 import FavoriteButton from "./FavoriteButton";
+import { useRouter } from "next/router";
 
 interface MovieCardProps {
     data: Movie
 }
 
 const MovieCard : React.FC<MovieCardProps> = ({data}) => {
-  return (
+    const router = useRouter();
+    return (
     <div className="group bg-zinc-900 col-span relative h-[12vw]">
         <Image 
             src={data.thumbnailUrl}
@@ -87,7 +89,7 @@ const MovieCard : React.FC<MovieCardProps> = ({data}) => {
                         transition
                         hover:bg-neutral-300 
                         " 
-                        onClick={() => {}}
+                        onClick={() => {router.push("/watch/"+data?.id)}}
                     >
                         <BsFillPlayFill size={30}/>
                     </div>
